@@ -5,10 +5,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "cross-env LOG_DISABLED=true node --experimental-vm-modules node_modules/jest/bin/jest.js --no-cache",
-    "test:watch": "cross-env LOG_DISABLED=true node --experimental-vm-modules node_modules/jest/bin/jest.js --no-cache --watchAll",
-    "test:coverage": "cross-env LOG_DISABLED=true node --experimental-vm-modules node_modules/jest/bin/jest.js --no-cache --coverage tests/unit",
-    "dev": "nodemon server/index.js"
+    "test": "LOG_DISABLED=true node_modules/jest/bin/jest.js --no-cache",
+    "test:watch": "cross-env LOG_DISABLED=true node '--experimental-vm-modules --no-warnings' node_modules/jest/bin/jest.js --no-cache --watchAll",
+    "test:coverage": "cross-env LOG_DISABLED=true node '--experimental-vm-modules --no-warnings' node_modules/jest/bin/jest.js --no-cache --coverage tests/unit",
+    "test:e2e": "cross-env LOG_DISABLED=true node '--experimental-vm-modules --no-warnings' node_modules/jest/bin/jest.js --no-cache tests/e2e",
+    "dev": "nodemon --legacy-watch server/index.js",
+    "dev:docker": "docker-compose up --build dev",
+    "test:docker": "docker-compose up --build test",
+    "test:e2e:docker": "docker-compose up --build test-e2e"
   },
   "keywords": [],
   "author": "",
@@ -17,12 +21,17 @@
     "node": "17"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "babel-jest": "^27.5.1",
     "cross-env": "^7.0.3",
     "jest": "^27.5.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "portfinder": "^1.0.28",
+    "supertest": "^6.2.2"
   },
   "dependencies": {
     "pino": "^7.8.1",
-    "pino-pretty": "^7.5.3"
+    "pino-pretty": "^7.5.3",
+    "throttle": "^1.0.3"
   }
 }

@@ -1,0 +1,40 @@
+version: "2.1"
+services:
+  dev:
+    image: spotify-radio
+    build: .
+    environment:
+      PORT: 3000
+    command:
+      - npm
+      - run
+      - dev
+    volumes:
+      - .:/spotify-radio
+      - node_modules:/spotify-radio/node_modules
+    ports:
+      - 3000:3000
+  
+  test-e2e:
+    image: spotify-radio
+    build: .
+    command:
+      - npm
+      - run
+      - test:e2e
+    volumes:
+      - .:/spotify-radio
+      - node_modules:/spotify-radio/node_modules
+  
+  test:
+    image: spotify-radio
+    build: .
+    command:
+      - npm
+      - run
+      - test
+    volumes:
+      - .:/spotify-radio
+      - node_modules:/spotify-radio/node_modules
+volumes:
+  node_modules: {}

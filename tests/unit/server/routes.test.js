@@ -1,8 +1,8 @@
 import { jest, expect, describe, test, beforeEach } from "@jest/globals";
-import config from "../../../server/config";
-import { Controller } from "../../../server/controller";
-import { handler } from "../../../server/routes";
-import TestUtil from "../_util/testUtil";
+import config from "../../../server/config.js";
+import { Controller } from "../../../server/controller.js";
+import { handler } from "../../../server/routes.js";
+import TestUtil from "../_util/testUtil.js";
 
 describe("#routes - test suite for api response", () => {
   beforeEach(() => {

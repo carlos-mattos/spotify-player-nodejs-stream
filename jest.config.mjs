@@ -22,6 +22,9 @@ export default {
       testEnvironment: "node",
       displayName: "backend",
       collectCoverageFrom: ["server/", "!server/index.js"],
+      transform: {
+        "^.+\\.jsx?$": "babel-jest",
+      },
       transformIgnorePatterns: [
         ...defaultConfig.transformIgnorePatterns,
         "public",
@@ -33,6 +36,9 @@ export default {
       testEnvironment: "jsdom",
       displayName: "frontend",
       collectCoverageFrom: ["public/"],
+      transform: {
+        "^.+\\.jsx?$": "babel-jest",
+      },
       transformIgnorePatterns: [
         ...defaultConfig.transformIgnorePatterns,
         "server",

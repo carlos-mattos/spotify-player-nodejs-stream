@@ -31,5 +31,10 @@ export default {
       ".js": "text/javascript",
       ".css": "text/css",
     },
+    audioMediaType: "mp3",
+    songVolume: "0.99",
+    fallBackBitrate: "128000",
+    englishConversation: join(songsDir, "conversation.mp3"),
+    bitRateDivisor: 8,
   },
 };
