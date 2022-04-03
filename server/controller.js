@@ -1,13 +1,35 @@
 import { Service } from "./service.js";
-import { logger } from "./utils.js";
+import { logger } from "./util.js";
 
 export class Controller {
   constructor() {
     this.service = new Service();
   }
 
-  async getFileStream(fileName) {
-    return this.service.getFileStream(fileName);
+  async getFileStream(filename) {
+    return this.service.getFileStream(filename);
+  }
+  async handleCommand({ command }) {
+    logger.info(`command received: ${command}`);
+    const result = {
+      result: "ok",
+    };
+
+    const cmd = command.toLowerCase();
+    if (cmd.includes("start")) {
+      this.service.startStreamming();
+      return result;
+    }
+
+    if (cmd.includes("stop")) {
+      this.service.stopStreamming();
+      return result;
+    }
+    const chosenFx = await this.service.readFxByName(cmd);
+    logger.info(`added fx to service: ${chosenFx}`);
+    this.service.appendFxStream(chosenFx);
+
+    return result;
   }
 
   createClientStream() {
@@ -22,26 +44,5 @@ export class Controller {
       stream: clientStream,
       onClose,
     };
-  }
-
-  async handleCommand({ command }) {
-    logger.info(`command received: ${command}`);
-
-    const cmd = command.toLowerCase();
-
-    if (cmd.includes("start")) {
-      this.service.startStreaming();
-      return {
-        result: "Streaming started",
-      };
-    }
-   
-    if (cmd.includes("stop")) {
-      this.service.stopStreaming();
-      return {
-        result: "Streaming stopped",
-      };
-    }
-
   }
 }
